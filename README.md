@@ -9,7 +9,7 @@ The UserBase Application is designed for simulating investment strategies and ma
 To run this application, ensure you have Python and the required libraries installed. You can install the necessary packages with the following command:
 
 ```bash
-pip install flask plotly dash deap numpy
+pip install -r requirements.txt
 ```
 
 ### Application Structure
@@ -27,6 +27,10 @@ To start the application, run:
 python app.py
 ```
 
+```bash
+python -m nexus_finance
+
+```
 The application will be accessible at `http://localhost:5000`.
 
 ### API Endpoints
