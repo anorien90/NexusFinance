@@ -1,3 +1,4 @@
+```markdown
 # README.md
 
 ## UserBase Application
@@ -81,3 +82,4 @@ This project is licensed under the MIT License.
 
 ### Conclusion
 The UserBase Application is a powerful tool for simulating investment strategies and analyzing user growth in a financial setting. With its user-friendly API and robust backend, it can be a valuable resource for financial analysts and investors alike.
+```
