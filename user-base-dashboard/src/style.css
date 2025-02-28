@@ -1,0 +1,488 @@
+
+html {
+  font-family: "Open Sans", sans-serif;
+  transition: width 0.0000001s ease-in, height 0.0001s ease-in-out;
+  justify-content: top;
+}
+
+body {
+    margin:0;
+    height: 100vh;
+}
+
+h1 {
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-family: 'Merriweather', serif; */
+    font-size: 3.5vh;
+    color: #333;
+    font-weight: 300;
+    text-align: center;
+    padding-bottom: 0;
+    padding-top: .5vh;
+    margin: 0;
+    height: 4.5vh;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+svg:disabled {
+  opacity: 0.4;
+}
+
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 99vh;
+  width: 100%;
+  border: 1vh solid red;
+}
+
+.overview {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+  margin-bottom: 1.5vh;
+  padding: 0;
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  gap: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.overview-key {
+  color: dimgray;
+  border-bottom: .1vh solid slategray;
+  padding-bottom: 0;
+  margin-bottom: 1.25vh;
+}
+
+.overview-value {
+  padding: 0;
+  margin: 0;
+  padding-bottom: .5vh;
+}
+
+#total-cost-value {
+  color: red;
+}
+
+#total-reinvest-value {
+  color: #ffa143;
+}
+
+#total-revenue-value {
+  color: forestgreen;
+}
+
+#lifelong-user-value {
+  color: green;
+}
+
+#lifelong-conversion-rate-value {
+  color: darkgreen;
+}
+
+#day-value {
+  color: navy;
+}
+
+#mean-conversion-rate-value {
+  color: darkslategray;
+}
+
+#total-installed-value {
+  color: darkblue;
+}
+#active-user-value {
+  color: midnightblue;
+}
+
+#conversion-rate-value {
+  color: slategray;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 300;
+  text-align: left;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.plots {
+    margin-top: 7.5vh;
+    display: grid;
+    position: absolute;
+    top: 15vh;
+    left: 1.5vw;
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: .25vw;
+    align-items: center;
+    justify-items: center;
+    grid-gap: 0vh;
+    width: auto;
+    border: 0px solid green;
+    z-index: 0;
+}
+
+.graph {
+    font-size: 5vh;
+    width: auto;
+    height: 42vh;
+    border: .4vh solid lightgrey;
+    padding: .2vh;
+}
+
+.plot {
+    border-radius: .2vh;
+    min-width: 47vw;
+    width: 46vw;
+    min-height: 22vh;
+    height: auto;
+    max-height: 42.5vh;
+    scale: 1;
+}
+
+.plot-container {
+    height: 300;
+    width: 100%;
+}
+
+.loader {
+  border: 4px solid #f3f3f3; /* Light gray */
+  border-top: 4px solid #ffa143; /* Blue */
+  border-radius: 50%;
+  width: 2vh;
+  height: 2vh;
+  animation: spin 1s linear infinite;
+}
+
+.plot h2 {
+  font-size: 16px;
+}
+
+.user-rates tr {
+  justify-content: space-between;
+}
+
+.user-rates th {
+  text-align: right;
+  border-bottom: 1px solid black;
+}
+
+.days-of-activity-inputs {
+  display: flex;
+  flex-direction: space-between;
+}
+
+.user-rates input[type=number] {
+  width: 3.5em;
+}
+
+.user-rates input[type=range] {
+  width: 5rem;
+}
+
+.user-rates-input {
+  display: flex;
+  flex-direction: space-between;
+}
+
+.user-rates-unit {
+  font-weight: 600;
+  text-align: center;
+  margin-left: .6em;
+}
+
+.inf-input {
+  position: relative;
+  top: .2em;
+  left: .15em;
+}
+
+.simulation-form {
+  position: absolute;
+  left: 50vw;
+  display: flex;
+  align-items: top;
+  border: 0px solid black;
+  font-size: 1.1vh;
+  margin-left: 2.5vw;
+}
+
+.simulation-form th {
+  border: 0px solid green;
+  text-align: left;
+}
+.settings-bar {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 5vh;
+  z-index: 1000;
+  padding-left: 2.5vw;
+}
+
+.investment-plan {
+  position: relative;
+  background-color: transparent;
+  min-width: 5.5vw;
+  width: auto;
+  height: auto;
+}
+
+.investment-plan-schedule,
+.strategy-inputs {
+  position: relative;
+  padding: 1em;
+  background-color: rgba(250, 250, 250, 0.8);
+  border-radius: 25px;
+  border: .01rem solid rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, .7);
+  box-shadow: 17px 9px 15px 15px rgba(0, 0, 0, .1);
+  text-align: left;
+  z-index: 5000;
+}
+
+.strategy-settings {
+  background-color: transparent;
+}
+
+.strategy-head,
+.investment-plan-head {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-right: 12vw;
+}
+
+
+.strategy-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.strategy-inputs td,
+.strategy-inputs tr {
+  display: flex;
+  flex-direction: row;
+}
+
+.strategy-inputs td {
+    justify-content: space-between;
+}
+
+.strategy-settings-slider {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.strategy-inputs tr:first-child {
+  font-size: .9rem;
+}
+
+.strategy-inputs tr:first-child td:first-child {
+  width: 30%;
+}
+
+.strategy-inputs tr:first-child td {
+  width: 30%;
+  padding-right: .5rem;
+}
+
+.strategy-inputs tr:first-child p {
+  width: 10rem;
+}
+
+.strategy-inputs td:first-child {
+  width: 20%;
+}
+
+.strategy-inputs td:last-child {
+  width: 75%;
+}
+
+.optimize-investment-plan {
+  position: absolute;
+  padding-right: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  bottom: 9vh;
+  left: 50vw;
+  width: 48vw;
+  height: 15vh;
+  font-size: .8em;
+}
+
+.optimize-settings {
+  height: 5%;
+  width: auto;
+  font-size: auto;
+  text-align: left;
+}
+
+.optimize-actions {
+  position: relative;
+  left: -10vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: auto;
+}
+
+.optimize-settings td {
+  width: auto; 
+}
+
+.generation-plot {
+  position: relative;
+  right: 2.5vw;
+  display: flex;
+  width: 100%;
+  margin-top: 1.5vh;
+}
+
+.generations-graph {
+  margin: 5rem;
+}
+
+.investment-plan input[type=range],
+.optimize-investment-plan input[type=range] {
+  width: 50%;
+}
+
+.investment-plan input[type=number],
+.optimize-investment-plan input[type=number] {
+  width: auto;
+  max-width: 3.5vw;
+  margin-right: .5vw;
+  font-size: 1.5vh;
+}
+
+.optimize-generations-plot {
+  width: auto;
+  padding: 5vw;
+}
+
+
+.optimize-option {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.optimize-input {
+  display: flex;
+  flex-direction: row;
+}
+
+
+#day-input {
+  width: 5.5vw;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.hidden {
+  display: none;
+}
+
+.user-edit-form {
+  position: relative;
+  left: 0;
+  z-index: 2000;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: .5rem;
+  height: auto;
+  width: 100%;
+  background-color: rgba(255, 255, 255, .95);
+  border: 1px solid rgba(0, 0, 0, .9);
+  padding: 1.5rem;
+}
+
+.user-distribution-container {
+  position: relative;
+  right: 2.5vw;
+  top: -1.5vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5vh;
+  z-index: 4000;
+  width: 48vw;
+  margin-right: 1.5vw;
+}
+
+.user-distribution-plot {
+  padding: 2.5vh;
+  width: 100%;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  padding-right: 3.5vw;
+}
+
+.user-actions {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.new-user {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  height: 92.5%;
+}
+
+.new-user button {
+  margin: auto;
+  padding: auto;
+}

@@ -1,0 +1,17 @@
+Metadata-Version: 2.2
+Name: nexus_finance
+Version: 0.1.0
+Summary: Simulation for UserBase growth and financial forecast
+Author-email: Henrik Lorenzen <h.lorenzen@nxs.solutions>
+Project-URL: Homepage, https://github.com/nxs-solutions/NexusFinance.git
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: Flask
+Requires-Dist: deap
+
+This software uses DEAP (Distributed Evolutionary Algorithms in Python), which is licensed under the LGPL (Lesser General Public License).
+

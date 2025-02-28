@@ -1,0 +1,3 @@
+recursive-include nexus_finance/static *
+include nexus_finance/static/*
+

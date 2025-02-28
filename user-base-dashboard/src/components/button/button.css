@@ -1,0 +1,31 @@
+
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.generate-button {
+    width: 2.5rem; /* Adjust size as needed */
+    height:2.5rem;
+    margin-left: 2.5vw;
+    background-image: url('../../../public/genetics-compose.png');
+    background-size: cover;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.generate-button:disabled {
+    opacity: 0.4;
+    background-image: url('../../../public/genetics.png'); /* Set hover image */
+    cursor: not-allowed;
+}
+
+
+.generate-button:hover {
+    background-image: url('../../../public/genetics.png'); /* Set hover image */
+    opacity: 0.8;
+}
+

@@ -1,0 +1,221 @@
+import math
+import random
+from itertools import chain
+from deap import base, tools
+from investment_fitness import InvestmentPlanFitness
+
+
+class InvestmentPlan:
+
+    def __init__(self, app, individual=[], user_base=None, simulation=None, **kwargs) -> None:
+        self.app = app
+        self.individual = individual
+        self.config = kwargs
+        self._simulation = simulation
+        self._user_base = user_base if user_base else {}
+        
+
+    @property
+    def fitness(self):
+        return InvestmentPlanFitness(self.user_base, self.strategy, user=1, scale=1, growth=1, reinvest=1, invest=1, revenue=5)
+        
+    @property
+    def user_base(self):
+        return self._user_base if self.app is None else self.app.user_base
+
+    @property
+    def simulation(self):
+        return self._simulation if self.app is None else self.app.simulation
+
+    @property
+    def strategy(self):
+        return self.config if self.app is None else self.app.strategy
+
+    @property
+    def initial_investment(self):
+        return int(self.individual[0])
+
+    @property
+    def reinvestment_rate(self):
+        return float(self.individual[1])
+
+    def schedule(self, individual):
+        return {int(day): int(amount) for day, amount in zip(individual[2::2], individual[3::2])}
+
+    @property
+    def target_user(self):
+        return self.strategy["target_user"]
+
+    @property
+    def target_day(self):
+        return self.strategy["target_day"]
+
+    def random_day(self, start=None, stop=None):
+        start, stop = start or 1, stop or self.strategy["target_day"]
+        return random.randint(start, stop)
+
+    def random_reinvest_rate(self, min_reinvest=None, max_reinvest=None):
+        min_reinvest = min_reinvest or self.strategy["reinvest_rate"][0]
+        max_reinvest = max_reinvest or self.strategy["reinvest_rate"][1]
+        return random.uniform(min_reinvest, max_reinvest)
+
+    def random_num_reinvest(self, min_days=None, max_days=None):
+        min_days = min_days or self.strategy["reinvest_days"][0]
+        max_days = max_days or self.strategy["reinvest_days"][1]
+        return random.randint(min_days, max_days)
+    
+    def random_initial_invest(self, min_invest=None, max_invest=None):
+        min_invest = min_invest or self.strategy["initial_invest"][0]
+        max_invest = max_invest or self.strategy["initial_invest"][1]
+        return (0, random.randint(min_invest, max_invest), 0.0)
+
+    def _init_invest(self, min_invest, max_invest):
+        min_invest = min_invest or self.strategy["initial_invest"][0]
+        max_invest = max_invest or self.strategy["initial_invest"][1]
+        return random.randint(min_invest, max_invest)
+
+
+    def random_extra_invest(self, 
+                            start=None, 
+                            stop=None, 
+                            min_invest=None, 
+                            max_invest=None):
+        min_invest = min_invest or self.strategy["extra_invest"][0]
+        max_invest = max_invest or self.strategy["extra_invest"][1]
+        return (self.random_day(start, stop),  random.randint(min_invest, max_invest), 0.0)
+
+
+    def random_num_invest(self, min_days=None, max_days=None):
+        min_days = min_days or self.strategy["invest_days"][0]
+        max_days = max_days or self.strategy["invest_days"][1]
+        return random.randint(min_days, max_days)
+
+    def random_invest_range(self, min_days=None, max_days=None):
+        min_days = min_days or self.strategy["invest_days"][0]
+        max_days = max_days or self.strategy["invest_days"][1]
+        return range(self.random_num_invest(min_days, max_days))
+
+    def random_invests(self, 
+                           start=None, 
+                           stop=None, 
+                           min_days=None, 
+                           max_days=None,
+                           min_init_invest=None,
+                           max_init_invest=None,
+                           min_invest=None, 
+                           max_invest=None):
+        invests = [self.random_extra_invest(start, stop, min_invest, max_invest) for _ in self.random_invest_range(min_days, max_days)]
+        return [self.random_initial_invest(min_init_invest, max_init_invest), *invests]
+
+    def random_reinvests(self, 
+                             start=None, 
+                             stop=None, 
+                             min_days=None, 
+                             max_days=None, 
+                             min_reinvest_rate=None, 
+                             max_reinvest_rate=None):
+        return [(self.random_day(start, stop), 0, self.random_reinvest_rate(min_reinvest_rate, max_reinvest_rate)) for _ in \
+                range(self.random_num_reinvest(min_days, max_days))]
+
+    def random_schedule(self, 
+                        start=None, 
+                        stop=None, 
+                        min_days=None, 
+                        max_days=None, 
+                        min_boost=None, 
+                        max_boost=None,
+                        min_reinvest_rate=None,
+                        max_reinvest_rate=None,
+                        ):
+
+        investments = self.random_invests(start, stop, min_days, max_days)
+        reinvestments = self.random_reinvests(start, stop, min_days, max_days, min_reinvest_rate, max_reinvest_rate)
+        schedule= {i[0]: {"investment": i[1], "reinvestment_rate": i[2]} for i in investments}
+        reinvest_schedule = {i[0]: {"investment": i[1], "reinvestment_rate": i[2]} for i in reinvestments}
+
+        for k, v in reinvest_schedule.items():
+            if k > self.strategy["target_day"] and k in schedule:
+                del schedule[k]
+            if k in schedule:
+                schedule[k]["reinvestment_rate"] = v["reinvestment_rate"]
+            else:
+                schedule[k] = v
+
+        return schedule
+
+            
+    def random_individual(self):
+        return self.schedule_to_individual(self.random_schedule())
+       
+
+    def register(self):
+        creator, toolbox = self.simulation.creator, self.simulation.toolbox
+        if not hasattr(creator, "Individual"):
+            creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+            creator.create("Individual", list, fitness=creator.FitnessMin)
+
+        toolbox.register("attr_init_invest", self._init_invest, *self.strategy["initial_invest"])  # Initial investment
+        toolbox.register("attr_extra_invest", self._init_invest, *self.strategy["extra_invest"])
+        toolbox.register("attr_extra_invest_days", random.randint, *self.strategy["extra_invest_days"])
+        toolbox.register("attr_reinvest_rate", random.uniform, *self.strategy["reinvest_rate"])  # Reinvestment rate
+        toolbox.register("attr_reinvest_days", random.randint, *self.strategy["reinvest_days"])  # Marketing boost days
+        toolbox.register("attr_num_extra_invest", random.randint, *self.strategy["num_extra_invest"])
+        toolbox.register("attr_num_reinvest", random.randint, *self.strategy["num_reinvest"])
+
+        def init_individual():
+            init_invest = (0, abs(toolbox.attr_init_invest()), 0.0) 
+            invests = [(abs(int(toolbox.attr_extra_invest_days())), abs(toolbox.attr_extra_invest()), 0.0) for _ in range(toolbox.attr_num_extra_invest())]
+            reinvests = [(abs(int(toolbox.attr_reinvest_days())), 0, abs(toolbox.attr_reinvest_rate())) for _ in range(toolbox.attr_num_reinvest())]
+            all_invests = list(chain(init_invest, *invests, *reinvests))
+            schedule = self.individual_to_schedule(all_invests)
+            individual = self.schedule_to_individual(schedule)
+            self.simulation.individuals.append(individual)
+            return creator.Individual(individual)
+        
+        toolbox.register("individual", init_individual)
+        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        toolbox.register("evaluate", self.eval_strategy)
+
+        return toolbox
+
+    @staticmethod
+    def schedule_to_individual(schedule):
+        return list(chain(*[(int(k), abs(v["investment"]), abs(v["reinvestment_rate"])) for k, v in schedule.items()]))
+
+    @staticmethod
+    def individual_to_schedule(individual):
+        schedule = {abs(int(individual[i*3])): {"investment": abs(individual[i*3+1]), 
+                                                "reinvestment_rate": abs(individual[i*3+2])} for i in range(int(len(individual)/3))}
+        def filter_individual(ind):
+            vals = ind[1]
+            invest, reinvest = abs(vals["investment"]), abs(vals["reinvestment_rate"])
+            vals["reinvestment_rate"] = round(reinvest, 2) if 1 >= reinvest >= 0 else 0.0
+            vals["investment"] = invest
+            return int(ind[0]), vals
+        
+        schedule = {k: v for k, v in map(filter_individual, schedule.items())}
+        return schedule
+
+    def eval_strategy(self, individual, user_weight=2, cost_weight=4):
+        return self.fitness.eval(self.individual_to_schedule(individual))
+ 
+if __name__ == "__main__":
+    from user_base import UserBase
+    import math
+    user_base = UserBase.random()
+    print(user_base)
+    strategy =  {"initial_invest": (1000, 50000), 
+                 "reinvest_rate" : (0.1, 0.2),
+                 "cost_per_install": 2.0,
+                 "target_day" : 30, 
+                 "target_user": 10000, 
+                 "invest_days": (0, 1),
+                 "reinvest_days": (0, 3), 
+                 "num_extra_invest": (0, 24),
+                 "num_reinvest": (0, 24),
+                 "extra_invest": (1000, 100000),
+                 "extra_invest_days": (0, 3),
+                 }
+    
+    plan = InvestmentPlan(None, user_base=user_base, **strategy)
+    print(plan.random_schedule())
