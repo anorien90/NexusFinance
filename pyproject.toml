@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nexus_finance"
-version = "0.1.0"
+version = "0.1.2"
 description = "Simulation for UserBase growth and financial forecast"
 readme = "README.md"
 authors = [
@@ -17,7 +17,7 @@ dependencies = [
 requires-python = ">=3.6"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
 urls = { "Homepage" = "https://github.com/nxs-solutions/NexusFinance.git" }
