@@ -222,7 +222,7 @@ class UserBase:
         return new_user_base
 
     def simulate_growth(self, investment_plan, days, verbose=False, cost_per_install=2.0):
-        user_base_copy = self.copy()
+        user_base_copy = self.new(0, *self.types)
         for day in range(0, days):
             if day in investment_plan.keys():
                 investment = investment_plan[day]["investment"]
