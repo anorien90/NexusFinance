@@ -1,6 +1,6 @@
 Metadata-Version: 2.2
 Name: nexus_finance
-Version: 0.1.3
+Version: 1.0.0
 Summary: Simulation for UserBase growth and financial forecast
 Author-email: Henrik Lorenzen <h.lorenzen@nxs.solutions>
 Project-URL: Homepage, https://github.com/nxs-solutions/NexusFinance.git
@@ -48,7 +48,7 @@ Ensure that Python 3.x is installed on your machine. Additionally, you will need
 
 
 ```bash
-pip install nexus_finance
+pip install nexus-finance
 ```
 
 ## Usage

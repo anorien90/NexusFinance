@@ -9,7 +9,6 @@ nexus_finance/app_routes.py
 nexus_finance/investment_fitness.py
 nexus_finance/investment_simulation.py
 nexus_finance/investment_strategy.py
-nexus_finance/main.py
 nexus_finance/user_base.py
 nexus_finance/user_type.py
 nexus_finance.egg-info/PKG-INFO
@@ -34,6 +33,9 @@ nexus_finance/static/static/js/453.6edf89f4.chunk.js.map
 nexus_finance/static/static/js/main.01b59bf4.js
 nexus_finance/static/static/js/main.01b59bf4.js.LICENSE.txt
 nexus_finance/static/static/js/main.01b59bf4.js.map
+nexus_finance/static/static/js/main.69fd2ca9.js
+nexus_finance/static/static/js/main.69fd2ca9.js.LICENSE.txt
+nexus_finance/static/static/js/main.69fd2ca9.js.map
 nexus_finance/static/static/js/main.a772ad72.js
 nexus_finance/static/static/js/main.a772ad72.js.LICENSE.txt
 nexus_finance/static/static/js/main.a772ad72.js.map
