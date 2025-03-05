@@ -97,7 +97,6 @@ def setup_routes(app):
                 for t in types:
                     if t.price_per_hour == app.user_base.price_per_hour:
                         t.price_per_hour = d["price_per_hour"]
-                print(types)
             
                 app._user_base = UserBase(0, *app._user_base._types, **d)
                 return jsonify(app.strategy.dict()), 200
