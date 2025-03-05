@@ -14,11 +14,6 @@
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
-DEBUG = False
-
-if DEBUG:
-    from flask_cors import CORS
-
 from .investment_simulation import InvestmentSimulation
 from .investment_strategy import InvestmentStrategy
 from .user_base import UserBase
@@ -83,27 +78,31 @@ class UserBaseApplication(Flask):
         self.processing = False
         return final_strategy
 
+strategy = {
+            "initial_invest": (10000, 50000),
+            "reinvest_rate": (0.2, 0.8),
+            "cost_per_install": 2.0,
+            "price_per_hour": 0.18,
+            "target_day": 365,
+            "target_user": 10000,
+            "invest_days": (0, 365),
+            "reinvest_days": (0, 300),
+            "num_extra_invest": (0, 24),
+            "num_reinvest": (0, 24),
+            "extra_invest": (1000, 100000),
+            "extra_invest_days": (30, 300),
+            }
 
+types = []
+app = UserBaseApplication(types, strategy)
+app = setup_routes(app)
+DEBUG = False
+
+
+if DEBUG:
+    from flask_cors import CORS
+    CORS(app)
+ 
 if __name__ == "__main__":
-    strategy = {
-                "initial_invest": (10000, 50000),
-                "reinvest_rate": (0.2, 0.8),
-                "cost_per_install": 2.0,
-                "price_per_hour": 0.18,
-                "target_day": 365,
-                "target_user": 10000,
-                "invest_days": (0, 365),
-                "reinvest_days": (0, 300),
-                "num_extra_invest": (0, 24),
-                "num_reinvest": (0, 24),
-                "extra_invest": (1000, 100000),
-                "extra_invest_days": (30, 300),
-                }
-
-    types = []
-    app = UserBaseApplication(types, strategy)
-    app = setup_routes(app)
-    if DEBUG:
-        CORS(app)
-    app.run(port=5000, debug=DEBUG)
+   app.run(port=5000, debug=DEBUG)
 
