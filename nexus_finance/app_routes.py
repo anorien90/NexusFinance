@@ -114,7 +114,6 @@ def setup_routes(app):
                 data = request.json or {}
                 user_types = data.get("types", [])
                 user_types = list(map(convert_user, user_types))
-                print(user_types)
                 app._user_base = app.user_base.new(0, *user_types)                
                 return jsonify(app.user_base.json()), 200
             
