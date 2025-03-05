@@ -1,8 +1,22 @@
+# Copyright (C) 2025 Henrik Lorenzen <your_email@nxs.solutions>
+#
+# Nexus-Finance is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Nexus-Finance is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
+
 import json
 import math
 from .user_type import User
 import random
-import logging
 
 
 class UserBase:
@@ -23,8 +37,6 @@ class UserBase:
                 **kwargs) -> None:
         print(price_per_hour, cost_per_install)
         self._types = []
-        # self.logger = logging.getLogger(__name__)
-        # logging.basicConfig(filename='UserBase.log', level=logging.INFO)
         self.cost_per_install = cost_per_install
         self.price_per_hour = price_per_hour
         self.types = user_types
@@ -51,7 +63,6 @@ class UserBase:
             self._types.append(usr_type)
 
     def add(self, num_user, *user_types, reinvest=False, cost_per_install=None):
-        # self.logger.info(f"add: {num_user}\n do_reinvest: {reinvest}")
         user = user_types or self.types
         cost_per_install = cost_per_install or self.cost_per_install
         self.total_installed += num_user
