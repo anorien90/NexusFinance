@@ -33,7 +33,7 @@ Ensure that Python 3.x is installed on your machine. Additionally, you will need
 
 
 ```bash
-pip install nexus_finance
+pip install nexus-finance
 ```
 
 ## Usage
