@@ -14,7 +14,10 @@
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
-from flask_cors import CORS
+DEBUG = False
+
+if DEBUG:
+    from flask_cors import CORS
 
 from .investment_simulation import InvestmentSimulation
 from .investment_strategy import InvestmentStrategy
@@ -100,6 +103,7 @@ if __name__ == "__main__":
     types = []
     app = UserBaseApplication(types, strategy)
     app = setup_routes(app)
-    CORS(app)
-    app.run(port=5000, debug=True)
+    if DEBUG:
+        CORS(app)
+    app.run(port=5000, debug=DEBUG)
 

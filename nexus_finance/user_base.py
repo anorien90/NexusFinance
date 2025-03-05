@@ -35,7 +35,6 @@ class UserBase:
                 cost_per_install=2.0,
                 price_per_hour=.18,
                 **kwargs) -> None:
-        print(price_per_hour, cost_per_install)
         self._types = []
         self.cost_per_install = cost_per_install
         self.price_per_hour = price_per_hour
@@ -77,7 +76,6 @@ class UserBase:
             self.days[-1]["total_cost"] = self.total_cost()
         
         else:
-            print("reinvest", num_user)
             reinvest = num_user * cost_per_install
             self.days[-1]["daily_reinvest"] = reinvest
             self.days[-1]["daily_revenue"] = - reinvest

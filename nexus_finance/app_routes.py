@@ -38,7 +38,6 @@ def setup_routes(app):
     def simulate():
         try:
             data = request.json or {}
-            print(f"data: {data}")
             plan = data.get("investment_plan", [])
             assert plan
             app.simulate_growth(**plan)
@@ -104,6 +103,7 @@ def setup_routes(app):
                 return jsonify(app.strategy.dict()), 200
             
             except Exception as e:
+                print(e)
                 return jsonify({"error": str(e)}), 400
  
     @app.route("/api/user_base", methods=["GET", "POST"])

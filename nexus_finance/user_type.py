@@ -123,5 +123,4 @@ if __name__ == "__main__":
     usr = User()
     usr["daily_hours"] = 1.4
     usr.max_days_of_activity = 1
-    print(usr.hours_per_day(2))
 
