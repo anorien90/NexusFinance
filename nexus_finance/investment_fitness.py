@@ -31,7 +31,7 @@ class InvestmentPlanFitness:
         self.weights = self.weights.copy()
         self.weights.update(weights)
 
-    def eval(self, individual, verbose=True, **weights):
+    def eval(self, individual, verbose=False, **weights):
         eval_weights = self.weights.copy()
         eval_weights.update(weights)
         user_base = self.user_base.simulate_growth(individual, days=self.strategy["target_day"])
