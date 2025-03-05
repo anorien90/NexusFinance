@@ -163,7 +163,7 @@ This endpoint allows you to update the user base.
   ```json
   {
     "types": [
-      {"conversion_rate": 0.05, "max_days_of_activity": "Infinity", "daily_hours": 0.5}
+      {"conversion_rate": 0.05, "max_days_of_activity": "Infinity", "daily_hours": 0.5, "price_per_hour": .1}
     ]
   }
   ```
