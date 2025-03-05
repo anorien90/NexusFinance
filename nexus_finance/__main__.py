@@ -1,7 +1,7 @@
 import math
 
-from nexus_finance import UserBaseApplication
-from nexus_finance import setup_routes
+from .app import UserBaseApplication
+from .app_routes import setup_routes
 
 strategy = {
             "initial_invest": (10000, 50000),

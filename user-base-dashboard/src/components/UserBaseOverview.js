@@ -16,6 +16,13 @@ const UserBaseOverview = ({ userBase, setUserBase, setIsProcessing }) => {
 
   const [error, setError] = useState(null); // Added error state
 
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number).replace(/,/g, ' '); // Replaces commas with spaces
+  };
+
   useEffect(() => {
     const updateOverviewData = () => {
       if (!userBase) return; // If no data, don't process
@@ -59,57 +66,57 @@ const UserBaseOverview = ({ userBase, setUserBase, setIsProcessing }) => {
     <div className="overview">
       <div className="overview-item">
         <h3 className="overview-key">Days</h3>
-        <p className="overview-value" id="day-value">{overviewData.day}</p>
+        <p className="overview-value" id="day-value">{formatNumber(overviewData.day)}</p>
       </div>
       <div className="overview-item">
         <h3 className="overview-key">Total Installed</h3>
-        <p className="overview-value" id="total-installed-value">{overviewData.total_installed}</p>
+        <p className="overview-value" id="total-installed-value">{formatNumber(overviewData.total_installed)}</p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Active User</h3>
-        <p className="overview-value" id="active-user-value">{overviewData.active_user_count}</p>
+        <p className="overview-value" id="active-user-value">{formatNumber(overviewData.active_user_count)}</p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Conversion Rate</h3>
         <p className="overview-value" id="conversion-rate-value">
-          {(overviewData.conversion_rate * 100).toFixed(2)}%
+          {formatNumber(overviewData.conversion_rate * 100)}%
         </p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Mean Conversion Rate</h3>
         <p className="overview-value" id="mean-conversion-rate-value">
-          {(overviewData.mean_conversion_rate * 100).toFixed(2)}%
+          {formatNumber(overviewData.mean_conversion_rate * 100)}%
         </p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Lifelong Conversion Rate</h3>
         <p className="overview-value" id="lifelong-conversion-rate-value">
-          {(overviewData.lifelong_conversion_rate * 100).toFixed(2)}%
+          {formatNumber(overviewData.lifelong_conversion_rate * 100)}%
         </p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Lifelong User</h3>
-        <p className="overview-value" id="lifelong-user-value">{overviewData.lifelong_user_count}</p>
+        <p className="overview-value" id="lifelong-user-value">{formatNumber(overviewData.lifelong_user_count)}</p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Total Revenue</h3>
-        <p className="overview-value" id="total-revenue-value">${overviewData.total_revenue.toFixed(2)}</p>
+        <p className="overview-value" id="total-revenue-value">${formatNumber(overviewData.total_revenue)}</p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key">Total Reinvestment</h3>
-        <p className="overview-value" id="total-reinvest-value">${overviewData.total_reinvest.toFixed(2)}</p>
+        <p className="overview-value" id="total-reinvest-value">${formatNumber(overviewData.total_reinvest)}</p>
       </div>
 
       <div className="overview-item">
         <h3 className="overview-key" id="total-cost-key">Total Cost</h3>
-        <p className="overview-value" id="total-cost-value">${overviewData.total_cost.toFixed(2)}</p>
+        <p className="overview-value" id="total-cost-value">${formatNumber(overviewData.total_cost)}</p>
       </div>
     </div>
   );

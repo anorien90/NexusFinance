@@ -1,11 +1,11 @@
 from flask import Flask
-# from flask_cors import CORS
+from flask_cors import CORS
 import math
 
-from nexus_finance.investment_simulation import InvestmentSimulation
-from nexus_finance.investment_strategy import InvestmentStrategy
-from nexus_finance.user_base import UserBase
-from nexus_finance.app_routes import setup_routes
+from .investment_simulation import InvestmentSimulation
+from .investment_strategy import InvestmentStrategy
+from .user_base import UserBase
+from .app_routes import setup_routes
 
 
 class UserBaseApplication(Flask):
@@ -42,6 +42,17 @@ class UserBaseApplication(Flask):
     def user_base(self):
         return self._user_base
 
+    @user_base.setter
+    def user_base(self, val):
+        if type(val) is UserBase:
+            self.user_base = val
+        else:
+            try:
+                self._user_base = UserBase(0, **val, **self.strategy)
+
+            except Exception as e:
+                raise TypeError(f"{e}{val} has not the correct type. Provide either a UserBase or a dict like iterable")
+
     def simulate_growth(self, **kwargs):
         self.processing = True
         investment_schedule = {int(k): v for k, v in kwargs.items()}
@@ -72,9 +83,9 @@ if __name__ == "__main__":
                 "extra_invest_days": (30, 300),
                 }
 
-    types = [{"conversion_rate": 0.05, "max_days_of_activity": math.inf, "daily_hours": 0.5}]
+    types = []
     app = UserBaseApplication(types, strategy)
     app = setup_routes(app)
-    # CORS(app)
+    CORS(app)
     app.run(port=5000, debug=True)
 

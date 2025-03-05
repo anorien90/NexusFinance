@@ -16,21 +16,21 @@ class InvestmentPlanFitness:
         self.weights = self.weights.copy()
         self.weights.update(weights)
 
-    def eval(self, individual, verbose=False, **weights):
+    def eval(self, individual, verbose=True, **weights):
         eval_weights = self.weights.copy()
         eval_weights.update(weights)
-        user_base = self.user_base.copy().simulate_growth(individual, days=self.strategy["target_day"], cost_per_install=self.strategy["cost_per_install"])
-        total_cost, total_user = user_base.total_cost, len(user_base)
+        user_base = self.user_base.simulate_growth(individual, days=self.strategy["target_day"])
+        total_cost, total_user = user_base.total_cost(), len(user_base)
         reinvest_rates = list(map(lambda v: v["reinvestment_rate"], filter(lambda v: 1 >= v["reinvestment_rate"] > 0, individual.values())))
         mean_reinvest_rate = sum(reinvest_rates)/(1 if not reinvest_rates else len(reinvest_rates))
         target_user, target_day = self.strategy["target_user"], self.strategy["target_day"]
-        total_revenue = user_base.total_revenue
+        total_revenue = user_base.total_revenue()
         
         user_reached = self.user_reached(total_user, 
                                          target_user, 
                                          weight=eval_weights.get("user", 1))
 
-        growth_eff = self.growth_efficency(user_base.daily_total_user, 
+        growth_eff = self.growth_efficency(user_base.daily_total_user(), 
                                            target_user, 
                                            target_day,
                                            weight=eval_weights.get("growth", 1))
@@ -65,7 +65,7 @@ class InvestmentPlanFitness:
         def merged_result(item):
             active, target = item
             user_diff = abs(active - target) * weight
-            return 0 if user_diff == 0 else math.log(user_diff)
+            return 0 if user_diff == 0 else math.log(user_diff) * (1.2 if active > target else .8)
 
         daily_growth = target_usr/target_day
         daily_targets = map(lambda i: daily_growth * i, range(1, target_day + 1))

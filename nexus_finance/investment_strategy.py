@@ -18,6 +18,7 @@ class InvestmentStrategy:
 
     def __init__(self, **kwargs) -> None:
         self.cost_per_install = kwargs.get("cost_per_install", 2.0)
+        self.price_per_hour = kwargs.get("price_per_hour", .18)
         self.initial_invest = kwargs.get("initial_invest", (1000, 50000))
         self.extra_invest = kwargs.get("extra_invest", (1000, 50000))
         self.num_extra_invest = kwargs.get("num_extra_invest", (0, 24))

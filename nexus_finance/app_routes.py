@@ -1,4 +1,5 @@
 from flask import request, jsonify, send_from_directory
+from nexus_finance.user_base import UserBase
 
 
 def convert_user(usr):
@@ -6,9 +7,11 @@ def convert_user(usr):
     max_days = float("inf") if any(map(lambda k: doa == k, ("Infinity", None))) else doa
     conv_rate = float(usr.get("conversion_rate", 0.01))
     daily_hrs = float(usr.get("daily_hours", 0.01))
+    price_per_hour = float(usr.get("price_per_hour", .1))
     user = {"conversion_rate": conv_rate,
             "max_days_of_activity": max_days,
-            "daily_hours": daily_hrs}
+            "daily_hours": daily_hrs,
+            "price_per_hour": price_per_hour}
     return user
 
 def setup_routes(app):
@@ -16,12 +19,11 @@ def setup_routes(app):
     def serve_frontend():   
         return send_from_directory(app.static_folder, "index.html")
 
-
-
     @app.route("/api/simulate", methods=["POST"])
     def simulate():
         try:
             data = request.json or {}
+            print(f"data: {data}")
             plan = data.get("investment_plan", [])
             assert plan
             app.simulate_growth(**plan)
@@ -76,6 +78,14 @@ def setup_routes(app):
             try:
                 data = request.json
                 app._strategy.update(data)
+                d = app._strategy.dict().copy() 
+                types = app._user_base._types
+                for t in types:
+                    if t.price_per_hour == app.user_base.price_per_hour:
+                        t.price_per_hour = d["price_per_hour"]
+                print(types)
+            
+                app._user_base = UserBase(0, *app._user_base._types, **d)
                 return jsonify(app.strategy.dict()), 200
             
             except Exception as e:
@@ -89,7 +99,8 @@ def setup_routes(app):
             try:
                 data = request.json or {}
                 user_types = data.get("types", [])
-                user_types = map(convert_user, user_types)
+                user_types = list(map(convert_user, user_types))
+                print(user_types)
                 app._user_base = app.user_base.new(0, *user_types)                
                 return jsonify(app.user_base.json()), 200
             

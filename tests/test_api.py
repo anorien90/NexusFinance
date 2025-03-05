@@ -1,7 +1,8 @@
 import unittest
 import json
-from nexus_finance import setup_routes
-from nexus_finance import UserBaseApplication
+from nexus_finance.app_routes import setup_routes
+from nexus_finance.app import UserBaseApplication
+
 
 
 class TestAPI(unittest.TestCase):

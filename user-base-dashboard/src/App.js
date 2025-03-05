@@ -190,7 +190,13 @@ function App() {
           err={err}
           setErr={setErr}
         />
-        <UserDistributionChart userBase={userBase} setUserBase={setUserBase} isProcessing={isProcessing} setHasUpdated={setHasUpdated} />
+        <UserDistributionChart 
+          userBase={userBase} 
+          setUserBase={setUserBase} 
+          isProcessing={isProcessing} 
+          setHasUpdated={setHasUpdated} 
+          strategy={strategy} 
+        />
       </div>
       <div id="plots" className="plots">
         <div>

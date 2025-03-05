@@ -13,6 +13,7 @@ function StrategySettings({
   // Set default values if strategy is not yet loaded
   const [localStrategy, setLocalStrategy] = useState({
     cost_per_install: strategy?.cost_per_install || 2.0,
+    price_per_hour: strategy?.price_per_hour || 0.18,
     extra_invest: strategy?.extra_invest || [1000, 100000],
     extra_invest_days: strategy?.extra_invest_days || [30, 300],
     initial_invest: strategy?.initial_invest || [10000, 50000],
@@ -93,6 +94,18 @@ function StrategySettings({
                   >
                     Save Changes
                 </button>
+              </td>
+              <td>
+                <p>Price per hour</p>
+                 <TextField
+                  type="number"
+                  inputProps={{ step: 0.01 }} // Ensure correct step behavior
+                  name="price_per_hour"
+                  value={localStrategy.price_per_hour}
+                  onChange={handleInputChange}
+                  disabled={isProcessing}
+                  size="small"
+                />
               </td>
               <td>
                 <p>Cost per Install:</p>
@@ -316,7 +329,7 @@ function StrategySettings({
                   valueLabelDisplay="auto"
                   min={0}
                   max={1}
-                  step={0.1}
+                  step={.1}
                   disabled={isProcessing}
                 />
                 <TextField

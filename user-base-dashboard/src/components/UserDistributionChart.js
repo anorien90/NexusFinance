@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const UserDistributionChart = ({ userBase, setUserBase, isProcessing, setHasUpdated }) => {
+const UserDistributionChart = ({ userBase, setUserBase, isProcessing, setHasUpdated, strategy }) => {
   const [userTypes, setUserTypes] = useState([]);
   const [showSchedule, setShowSchedule] = useState(false);
   const [changes, setChanges] = useState(false);
@@ -51,25 +51,33 @@ const UserDistributionChart = ({ userBase, setUserBase, isProcessing, setHasUpda
     conversion_rate: usr.conversion_rate,
     daily_hours: usr.daily_hours,
     max_days_of_activity: 365,
+    price_per_hour: usr.price_per_hour || strategy?.price_per_hour,
   }));
 
   const temporaryData = temporaryUsersData.map((usr) => ({
     conversion_rate: usr.conversion_rate,
     daily_hours: usr.daily_hours,
     max_days_of_activity: usr.max_days_of_activity || 50,
+    price_per_hour: usr.price_per_hour || strategy?.price_per_hour,
   }));
-
+  
   const handleInputChange = (index, field, value) => {
     const updatedTypes = [...userTypes];
-    updatedTypes[index][field] = field === "max_days_of_activity" && (value === Infinity || value === null)
-      ? Infinity
-      : value;
+
+    if (field === "price_per_hour") {
+      updatedTypes[index][field] = value;
+    } else {
+      updatedTypes[index][field] = field === "max_days_of_activity" && (value === Infinity || value === null)
+        ? Infinity
+        : value;
+    }
+
     setUserTypes(updatedTypes);
-    setChanges(true);
+    setChanges(true); // Mark as changed to trigger update
   };
 
   const addNewType = () => {
-    const newType = { conversion_rate: 0.01, daily_hours: 0.01, max_days_of_activity: 50 };
+    const newType = { conversion_rate: 0.01, daily_hours: 0.01, max_days_of_activity: 50, price_per_hour: strategy?.price_per_hour};
     setUserTypes((prevTypes) => [...prevTypes, newType]);
     setChanges(true);
   };
@@ -89,21 +97,27 @@ const UserDistributionChart = ({ userBase, setUserBase, isProcessing, setHasUpda
     setChanges(false);
   };
 
+
   const handleFormSubmit = async () => {
-    setUserBase((prevState) => ({
-    ...prevState,
-    types: userTypes.map((type) => ({
+
+    const updatedTypes = userTypes.map((type) => ({
       ...type,
       max_days_of_activity: type.max_days_of_activity === Infinity ? null : type.max_days_of_activity,
-      })),
+    }));
+  
+    // Update userBase with the latest types (including price_per_hour)
+    setUserBase((prevState) => ({
+      ...prevState,
+      types: updatedTypes,
     }));
   
     setChanges(false);
     setShowSchedule(false);
     setHasUpdated(false);
   };
-  //
-   // Download user types as JSON
+
+
+
   const downloadUserTypes = () => {
     const dataStr = JSON.stringify(
       userTypes.map((type) => ({
@@ -375,6 +389,39 @@ const UserDistributionChart = ({ userBase, setUserBase, isProcessing, setHasUpda
                           onChange={(e) => handleInputChange(index, "max_days_of_activity", e.target.checked ? "Infinity" : 50)} 
                         />
                       </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div className="tooltip">
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          height="24px" 
+                          viewBox="0 -960 960 960" 
+                          width="24px" 
+                          fill="#000000">
+                          <path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z"/></svg>
+                          <span className="tooltip-text">Price per hour for the User</span>
+                        </div>
+                      </td>
+                      <td className="price-per-hour-inputs">
+                        <input 
+                          type="range" 
+                          min="0.01" 
+                          max="0.5"
+                          step=".01" 
+                          value={user.price_per_hour} 
+                          onChange={(e) => handleInputChange(index, "price_per_hour", parseFloat(e.target.value))} 
+                        />
+                        <input 
+                          type="number" 
+                          min="0.01" 
+                          step=".01" 
+                          value={user.price_per_hour} 
+                          onChange={(e) => handleInputChange(index, "price_per_hour", parseFloat(e.target.value))} 
+                        />
+                     </td>
+
                     </tr>
                   </tbody>
                 </table>

@@ -1,7 +1,7 @@
 from deap import base, creator, tools, algorithms
 import numpy as np
 import random
-from nexus_finance.investment_fitness import InvestmentPlanFitness
+from .investment_fitness import InvestmentPlanFitness
 from itertools import chain
 
 
