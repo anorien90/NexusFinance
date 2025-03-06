@@ -14,7 +14,6 @@
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 
 import webbrowser
-from threading import Timer
 from flask import Flask
 from nexus_finance.investment_simulation import InvestmentSimulation
 from nexus_finance.investment_strategy import InvestmentStrategy
@@ -101,4 +100,5 @@ app = setup_routes(app)
 CORS(app)
 
 if __name__ == "__main__":
+    webbrowser.open("http://127.0.0.1:5000")
     app.run(host="0.0.0.0", port=5000, debug=False)

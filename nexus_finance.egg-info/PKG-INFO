@@ -1,6 +1,6 @@
 Metadata-Version: 2.2
 Name: nexus_finance
-Version: 1.0.1
+Version: 1.0.2
 Summary: Simulation for UserBase growth and financial forecast
 Author-email: Henrik Lorenzen <h.lorenzen@nxs.solutions>
 Project-URL: Homepage, https://github.com/nxs-solutions/NexusFinance.git
@@ -178,7 +178,7 @@ This endpoint allows you to update the user base.
   ```json
   {
     "types": [
-      {"conversion_rate": 0.05, "max_days_of_activity": "Infinity", "daily_hours": 0.5}
+      {"conversion_rate": 0.05, "max_days_of_activity": "Infinity", "daily_hours": 0.5, "price_per_hour": .1}
     ]
   }
   ```

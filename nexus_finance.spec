@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['nexus_finance/app.py'],
+    ['nexus_finance\\app.py'],
     pathex=[],
     binaries=[],
     datas=[('nexus_finance/static', 'static')],

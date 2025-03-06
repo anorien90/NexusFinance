@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nexus_finance"
-version = "1.0.1"
+version = "1.0.2"
 description = "Simulation for UserBase growth and financial forecast"
 readme = "README.md"
 authors = [
