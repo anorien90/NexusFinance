@@ -18,17 +18,17 @@ fi
 echo "Tests passed successfully!"
 
 # Step 3: Fetch the current version from pyproject.toml
-CURRENT_VERSION=$(grep -oP 'version = "\K[0-9]+\.[0-9]+\.[0-9]+"' pyproject.toml | sed 's/"//g')
+VERSION_FILE="pyproject.toml"
+CURRENT_VERSION=$(grep -Po '(?<=version = ")\d+\.\d+\.\d+' $VERSION_FILE)
 echo "Current version: $CURRENT_VERSION"
 
 # Ask the user for the new version
 read -p "Enter the new version (current version: $CURRENT_VERSION): " NEW_VERSION
 if [ -z "$NEW_VERSION" ]; then
-    echo "No version provided, using default version 1.0.1"
-    NEW_VERSION="1.0.1"
+    echo "No version provided, using default version 1.0.3"
+    NEW_VERSION="1.0.3"
 fi
 
-VERSION_FILE="pyproject.toml"
 echo "Updating version in $VERSION_FILE to $NEW_VERSION..."
 
 # Use sed to update the version in the pyproject.toml file
