@@ -14,6 +14,7 @@
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 
 import math
+from flask_cors import CORS
 
 from .app import UserBaseApplication
 from .app_routes import setup_routes
@@ -36,4 +37,6 @@ strategy = {
 types = [{"conversion_rate": 0.05, "max_days_of_activity": math.inf, "daily_hours": 0.5}]
 app = UserBaseApplication(types, strategy)
 app = setup_routes(app)
+CORS(app)
+
 app.run(port=5000, debug=True)
