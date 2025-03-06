@@ -37,6 +37,7 @@ sed -i "s/version = \"$CURRENT_VERSION\"/version = \"$NEW_VERSION\"/" $VERSION_F
 # Verify the version update
 echo "Updated version:"
 grep "version" $VERSION_FILE
+rm -r dist/*
 
 # Step 4: Run py -m build dist to build the distribution
 echo "Building distribution..."
