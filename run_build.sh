@@ -31,7 +31,7 @@ fi
 
 echo "Updating version in $VERSION_FILE to $NEW_VERSION..."
 
-# Use sed to update the version in the pyproject.toml file
+# Use sed to update the version in pyproject.toml
 sed -i "s/version = \"$CURRENT_VERSION\"/version = \"$NEW_VERSION\"/" $VERSION_FILE
 
 # Verify the version update
@@ -66,7 +66,6 @@ if [ "$BUILD_WINDOWS" == "y" ]; then
     wine pyinstaller --onefile --add-data "nexus_finance/static:static" --hidden-import=flask --distpath bin --name="nexus_finance" nexus_finance/app.py
     if [ $? -eq 0 ]; then
         echo "Windows Binary-Build successful!"
-        echo ""
     else
         echo "Windows Build failed."
         exit 1
@@ -102,6 +101,33 @@ else
         echo "Git commit failed."
         exit 1
     fi
+fi
+
+# Step 8: Upload to PyPI using Twine
+read -p "Do you want to upload to PyPI? (y/n): " UPLOAD_TO_PYPI
+if [ "$UPLOAD_TO_PYPI" == "y" ]; then
+    # Check if the API key file exists
+    API_KEY_FILE="$HOME/.pip/pypi.key"
+    if [ ! -f "$API_KEY_FILE" ]; then
+        echo "Error: PyPI API key file not found at $API_KEY_FILE"
+        exit 1
+    fi
+
+    # Read the API key
+    API_KEY=$(cat "$API_KEY_FILE")
+
+    # Upload using Twine
+    echo "Uploading to PyPI..."
+    twine upload -u __token__ -p "$API_KEY" dist/*
+
+    if [ $? -eq 0 ]; then
+        echo "Upload to PyPI successful!"
+    else
+        echo "Upload failed."
+        exit 1
+    fi
+else
+    echo "Skipping PyPI upload."
 fi
 
 echo "Script completed successfully."
