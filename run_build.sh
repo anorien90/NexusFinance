@@ -66,6 +66,7 @@ if [ "$BUILD_WINDOWS" == "y" ]; then
     wine pyinstaller --onefile --add-data "nexus_finance/static:static" --hidden-import=flask --distpath bin --name="nexus_finance" nexus_finance/app.py
     if [ $? -eq 0 ]; then
         echo "Windows Binary-Build successful!"
+        echo ""
     else
         echo "Windows Build failed."
         exit 1
