@@ -36,6 +36,14 @@ Ensure that Python 3.x is installed on your machine. Additionally, you will need
 pip install nexus-finance
 ```
 
+You can also clone the git repository.
+
+```bash
+git clone https://github.com/anorien90/NexusFinance.git
+
+```
+
+
 ## Usage
 
 ### Running the Application
@@ -45,6 +53,25 @@ To start the Flask application, run the following command:
 ```bash
 python -m nexus_finance
 ```
+
+If you have the git repository and want to run the binary.
+
+For Linux use.
+
+```bash
+NexusFinance/bin/nexus_finance
+
+```
+
+For Windows run 
+
+```bash
+NexusFinance\bin\nexus_finance.exe
+```
+
+!! Note Windows wont allow execution without giving permission as the .exe is not certified. 
+If you don't cant't/want to allow user pip install nexus-finance instead !!
+
 
 By default, the application will run on `http://localhost:5000`. You can access the application via a web browser or interact with it through the API endpoints.
 
