@@ -29,8 +29,6 @@ The application includes routes for simulating growth, optimizing the investment
 
 ### Prerequisites
 
-Ensure that Python 3.x is installed on your machine. Additionally, you will need to install the required dependencies.
-
 
 ```bash
 pip install nexus-finance
