@@ -1,6 +1,6 @@
 Metadata-Version: 2.2
 Name: nexus_finance
-Version: 1.0.41
+Version: 1.0.42
 Summary: Simulation for UserBase growth and financial forecast
 Author-email: Henrik Lorenzen <h.lorenzen@nxs.solutions>
 Project-URL: Homepage, https://github.com/nxs-solutions/NexusFinance.git
@@ -11,6 +11,7 @@ Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
 Requires-Dist: Flask
+Requires-Dist: flask_cors
 Requires-Dist: deap
 
 

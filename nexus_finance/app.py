@@ -100,5 +100,5 @@ app = setup_routes(app)
 CORS(app)
 
 if __name__ == "__main__":
-    webbrowser.open("http://127.0.0.1:5000")
+    webbrowser.open("http://127.0.0.1:5000", new=1)
     app.run(host="0.0.0.0", port=5000, debug=False)

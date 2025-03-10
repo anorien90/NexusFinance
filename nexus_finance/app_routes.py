@@ -14,6 +14,8 @@
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 
 from flask import request, jsonify, send_from_directory
+from flask_cors import CORS
+
 from nexus_finance.user_base import UserBase
 
 
@@ -151,4 +153,5 @@ def setup_routes(app):
         except Exception as e:
             return jsonify({"error": str(e)}), 400
 
+    CORS(app)
     return app 
