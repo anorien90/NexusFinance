@@ -98,7 +98,8 @@ types = []
 app = UserBaseApplication(types, strategy)
 app = setup_routes(app)
 DEBUG = True
-
+HOST = "127.0.0.1"
+PORT = 5000
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=DEBUG)
+   app.run(host=HOST, port=PORT, debug=DEBUG)

@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.684ed94d.css",
+    "main.js": "/static/js/main.69fd2ca9.js",
+    "static/js/453.6edf89f4.chunk.js": "/static/js/453.6edf89f4.chunk.js",
+    "static/media/genetics-compose.png": "/static/media/genetics-compose.a72f8b774aa5e8599a31.png",
+    "static/media/genetics.png": "/static/media/genetics.2249fedc0035ab031014.png",
+    "index.html": "/index.html",
+    "main.684ed94d.css.map": "/static/css/main.684ed94d.css.map",
+    "main.69fd2ca9.js.map": "/static/js/main.69fd2ca9.js.map",
+    "453.6edf89f4.chunk.js.map": "/static/js/453.6edf89f4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.684ed94d.css",
+    "static/js/main.69fd2ca9.js"
+  ]
+}
