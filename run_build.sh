@@ -1,14 +1,19 @@
 #!/bin/bash
 
-# Step 1: Activate virtual environment
-source .venv/bin/activate
-
-# Set wine architecture and prefix
 export WINEARCH=win32
 export WINEPREFIX=~/.wine32
+VERSION_FILE="pyproject.toml"
+CURRENT_VERSION=$(grep -Po '(?<=version = ")\d+\.\d+\.\d+' $VERSION_FILE)
 
-# Step 2: Run pytest to check for any errors
-echo "Running pytest..."
+
+
+python3 -m venv .test_env
+source .test_env/bin/activate
+python3 -m pip install -r requirements.txt
+python3 -m pip install pytest
+
+# Stage 1 Test
+echo "Running Stage1 pytest..."
 pytest
 if [ $? -ne 0 ]; then
     echo "Tests failed. Exiting..."
@@ -16,10 +21,16 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Tests passed successfully!"
+deactivate
+rm -r .test_env
+
+# Start building dist packages
+echo "Starting build process..."
+python3 -m venv .build
+source .build/bin/activate
+python3 -m pip install -r build_requirements.txt
 
 # Step 3: Fetch the current version from pyproject.toml
-VERSION_FILE="pyproject.toml"
-CURRENT_VERSION=$(grep -Po '(?<=version = ")\d+\.\d+\.\d+' $VERSION_FILE)
 echo "Current version: $CURRENT_VERSION"
 
 # Ask the user for the new version
@@ -50,6 +61,24 @@ else
     echo "Build failed."
     exit 1
 fi
+
+# Stage2 Test
+deactivate
+python3 -m venv .test_env
+source .test_env/bin/activate
+python3 -m pip install pytest
+python3 -m pip install dist/*.whl
+
+echo "Running Stage2 pytest..."
+pytest
+if [ $? -ne 0 ]; then
+    echo "Tests failed. Exiting..."
+    exit 1
+fi
+
+echo "Tests passed successfully!"
+deactivate
+rm -r .test_env
 
 # Step 5: Build Linux binary with PyInstaller
 echo "Building Linux binary..."

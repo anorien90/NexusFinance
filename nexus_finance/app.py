@@ -13,13 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 
-import webbrowser
 from flask import Flask
 from nexus_finance.investment_simulation import InvestmentSimulation
 from nexus_finance.investment_strategy import InvestmentStrategy
 from nexus_finance.user_base import UserBase
 from nexus_finance.app_routes import setup_routes
-from flask_cors import CORS
+
 
 class UserBaseApplication(Flask):
 
@@ -27,6 +26,7 @@ class UserBaseApplication(Flask):
         super().__init__(__name__, static_folder="static", static_url_path="/")
         self._user_base = UserBase(0, *types)
         self._strategy = InvestmentStrategy(**strategy)
+        print(self._strategy)
         self._simulation = InvestmentSimulation(self)
         self._status = {"processing": False}
 
@@ -97,8 +97,8 @@ strategy = {
 types = []
 app = UserBaseApplication(types, strategy)
 app = setup_routes(app)
-CORS(app)
+DEBUG = True
+
 
 if __name__ == "__main__":
-    webbrowser.open("http://127.0.0.1:5000", new=1)
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="127.0.0.1", port=5000, debug=DEBUG)

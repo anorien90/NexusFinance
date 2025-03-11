@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
+import json
 
 
 class InvestmentStrategy:
@@ -41,7 +42,7 @@ class InvestmentStrategy:
         self.reinvest_days = kwargs.get("reinvest_days", (1, 365))
         self.target_user = kwargs.get("target_user", 10000)
         self.target_day = kwargs.get("target_day", 365)
-        self.extra_invest_days = kwargs.get("extra_invest_days", self.target_day)
+        self.extra_invest_days = kwargs.get("extra_invest_days", (1, self.target_day))
         
     def __getitem__(self, key):
         return self.__dict__[key]
@@ -67,6 +68,9 @@ class InvestmentStrategy:
 
     def __iter__(self):
         return iter(self.__dict__.items())
+
+    def __repr__(self):
+        return json.dumps(self.dict(), indent=5)
 
     def update(self, kwargs):
         for k, v in kwargs.items():
