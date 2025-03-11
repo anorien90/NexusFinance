@@ -81,7 +81,7 @@ class InvestmentPlanFitness:
             active, target = item
             user_diff = abs(active - target) * weight
             return 0 if user_diff == 0 else math.log(user_diff) * (1.2 if active > target else .8)
-
+        assert target_day
         daily_growth = target_usr/target_day
         daily_targets = map(lambda i: daily_growth * i, range(1, target_day + 1))
         merged = list(zip(daily_total_usr, daily_targets))

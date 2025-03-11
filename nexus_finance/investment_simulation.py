@@ -109,8 +109,13 @@ class InvestmentSimulation:
         for i in range(generations):
             if not self.app.processing:
                 break
-            self.population, log = algorithms.eaSimple(self.population, self.toolbox, cxpb=0.5, mutpb=mutprob, ngen=1, 
-                                       stats=self.stats, verbose=True)
+            self.population, log = algorithms.eaSimple(self.population, 
+                                                       self.toolbox, 
+                                                       cxpb=0.5, 
+                                                       mutpb=mutprob, 
+                                                       ngen=1, 
+                                                       stats=self.stats, 
+                                                       verbose=True)
             log_entry = log[-1]
             log_entry["gen"] = i +1
             self.logbook.append(log_entry)

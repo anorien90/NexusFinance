@@ -193,7 +193,10 @@ class UserBase:
         return sum(usr.conversion_rate for usr in self.types)
 
     def conversion_mean(self):
-        return self.conversion_rate()/len(self.types) if len(self.types) > 0 else 0
+        if len(self.types) > 0:
+            return self.conversion_rate()/len(self.types) if len(self.types) > 0 else 0
+        else:
+            return 0
 
     def cumulative_revenue(self):
         return [sum(self.daily_revenue()[:i + 1]) for i in self.num_days()]
@@ -235,6 +238,9 @@ class UserBase:
     def simulate_growth(self, investment_plan, days, verbose=False, cost_per_install=None, price_per_hour=None):
         price_per_hour = price_per_hour or self.price_per_hour
         cost_per_install = cost_per_install or self.cost_per_install
+        assert cost_per_install
+        assert price_per_hour
+
         user_base_copy = self.new(0, *self.types, price_per_hour=price_per_hour, cost_per_install=cost_per_install)
         for day in range(0, days):
             if day in investment_plan.keys():
