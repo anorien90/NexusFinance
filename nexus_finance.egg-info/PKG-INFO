@@ -57,7 +57,6 @@ git clone https://github.com/anorien90/NexusFinance.git
 
 ```
 
-
 ## Usage
 
 ### Running the Application
@@ -102,146 +101,6 @@ If you don't cant't/want to allow user pip install nexus-finance instead !!
 
 By default, the application will run on `http://localhost:5000`. You can access the application via a web browser or interact with it through the API endpoints.
 
-### API Endpoints
-
-The application provides several API routes for simulating investment growth, optimizing strategies, and managing user base data. Below is a list of available routes and their usage.
-
-#### 1. **`GET /`** - Serve Frontend
-
-This serves the static frontend page (typically `index.html`) to the user.
-
-#### 2. **`POST /api/simulate`** - Simulate Investment Growth
-
-This endpoint allows you to simulate the growth of the user base based on the provided investment plan.
-
-- **Request Body**:
-  ```json
-  {
-    "investment_plan": {
-      "1": {"investment": 1000, "reinvestment_rate": 0.2},
-      "2": {"investment": 1500, "reinvestment_rate": 0.3}
-    }
-  }
-  ```
-
-- **Response**:
-  - Status code: `200 OK` on success.
-  - Returns the current state of the user base.
-
-#### 3. **`GET /api/status`** - Get Simulation Status
-
-This endpoint provides the current status of the simulation.
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the status of the simulation (e.g., if it's processing or completed).
-
-#### 4. **`GET /api/processing`** - Check Processing Status
-
-This endpoint allows you to check if the simulation is currently processing.
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the current processing status (`true` or `false`).
-
-#### 5. **`POST /api/processing`** - Set Processing Status
-
-This endpoint allows you to update the processing status.
-
-- **Request Body**:
-  ```json
-  {
-    "processing": true
-  }
-  ```
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the updated processing status.
-
-#### 6. **`POST /api/optimize`** - Optimize Investment Plan
-
-This endpoint is used to optimize the investment strategy using genetic algorithms.
-
-- **Request Body**:
-  ```json
-  {
-    "population": 50,
-    "generations": 20,
-    "mutprob": 0.2
-  }
-  ```
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the optimized investment strategy.
-
-#### 7. **`GET /api/strategy`** - Get Current Strategy
-
-This endpoint retrieves the current investment strategy.
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the current investment strategy.
-
-#### 8. **`POST /api/strategy`** - Set New Strategy
-
-This endpoint allows you to update the current investment strategy.
-
-- **Request Body**:
-  ```json
-  {
-    "initial_invest": [10000, 50000],
-    "reinvest_rate": [0.2, 0.8],
-    "target_day": 365
-  }
-  ```
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the updated investment strategy.
-
-#### 9. **`GET /api/user_base`** - Get User Base
-
-This endpoint retrieves the current user base data.
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the user base data in JSON format.
-
-#### 10. **`POST /api/user_base`** - Set New User Base
-
-This endpoint allows you to update the user base.
-
-- **Request Body**:
-  ```json
-  {
-    "types": [
-      {"conversion_rate": 0.05, "max_days_of_activity": "Infinity", "daily_hours": 0.5, "price_per_hour": .1}
-    ]
-  }
-  ```
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the updated user base.
-
-#### 11. **`GET /api/user_base/last`** - Get Last User Base State
-
-This endpoint retrieves the last state of the user base.
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the last state of the user base.
-
-#### 12. **`GET /api/user_base/types`** - Get User Base Types
-
-This endpoint retrieves all user base types.
-
-- **Response**:
-  - Status code: `200 OK`
-  - Returns the types of users in the user base.
-
 ## Project Structure
 
 Here's an overview of the project structure:
@@ -260,6 +119,155 @@ Here's an overview of the project structure:
 ├── requirements.txt         # Python dependencies
 └── README.md              # This file
 ```
+
+## API Endpoints
+
+The application provides several API routes for simulating investment growth, optimizing strategies, and managing user base data. Below is a list of available routes and their usage.
+
+### 1. **`GET /`** - Serve Frontend
+
+This serves the static frontend page (typically `index.html`) to the user.
+
+### 2. **`POST /api/simulate`** - Simulate Investment Growth
+
+This endpoint allows you to simulate the growth of the user base based on the provided investment plan.
+
+- **Request Body**:
+  ```json
+  {
+    "investment_plan": {
+      "1": {"investment": 1000, "reinvestment_rate": 0.2},
+      "2": {"investment": 1500, "reinvestment_rate": 0.3}
+    }
+  }
+  ```
+
+- **Response**:
+  - Status code: `200 OK` on success.
+  - Returns the current state of the user base.
+
+### 3. **`GET /api/status`** - Get Simulation Status
+
+This endpoint provides the current status of the simulation.
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the status of the simulation (e.g., if it's processing or completed).
+
+### 4. **`GET /api/processing`** - Check Processing Status
+
+This endpoint allows you to check if the simulation is currently processing.
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the current processing status (`true` or `false`).
+
+### 5. **`POST /api/processing`** - Set Processing Status
+
+This endpoint allows you to update the processing status.
+
+- **Request Body**:
+  ```json
+  {
+    "processing": true
+  }
+  ```
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the updated processing status.
+
+### 6. **`POST /api/optimize`** - Optimize Investment Plan
+
+This endpoint is used to optimize the investment strategy using genetic algorithms.
+
+- **Request Body**:
+  ```json
+  {
+    "population": 50,
+    "generations": 20,
+    "mutprob": 0.2
+  }
+  ```
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the optimized investment strategy.
+
+### 7. **`GET /api/strategy`** - Get Current Strategy
+
+This endpoint retrieves the current investment strategy.
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the current investment strategy.
+
+### 8. **`POST /api/strategy`** - Set New Strategy
+
+This endpoint allows you to update the current investment strategy.
+
+- **Request Body**:
+  ```json
+  {
+    "initial_invest": [10000, 50000],
+    "reinvest_rate": [0.2, 0.8],
+    "cost_per_install": 2.0,
+    "price_per_hour": 0.18,
+    "target_day": 365,
+    "target_user": 10000,
+    "invest_days": [0, 365],
+    "reinvest_days": [0, 300],
+    "num_extra_invest": [0, 24],
+    "num_reinvest": [0, 24],
+    "extra_invest": [1000, 100000],
+    "extra_invest_days": [30, 300],
+  }
+  ```
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the updated investment strategy.
+
+### 9. **`GET /api/user_base`** - Get User Base
+
+This endpoint retrieves the current user base data.
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the user base data in JSON format.
+
+### 10. **`POST /api/user_base`** - Set New User Base
+
+This endpoint allows you to update the user base.
+
+- **Request Body**:
+  ```json
+  {
+    "types": [
+      {"conversion_rate": 0.05, "max_days_of_activity": "Infinity", "daily_hours": 0.5, "price_per_hour": .1}
+    ]
+  }
+  ```
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the updated user base.
+
+### 11. **`GET /api/user_base/last`** - Get Last User Base State
+
+This endpoint retrieves the last state of the user base.
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the last state of the user base.
+
+### 12. **`GET /api/user_base/types`** - Get User Base Types
+
+This endpoint retrieves all user base types.
+
+- **Response**:
+  - Status code: `200 OK`
+  - Returns the types of users in the user base.
 
 ## Customization
 

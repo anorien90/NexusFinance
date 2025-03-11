@@ -29,6 +29,7 @@ echo "Starting build process..."
 python3 -m venv .build
 source .build/bin/activate
 python3 -m pip install -r build_requirements.txt
+python3 -m pip install -r requirements.txt
 
 # Step 3: Fetch the current version from pyproject.toml
 echo "Current version: $CURRENT_VERSION"
