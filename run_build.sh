@@ -80,6 +80,9 @@ echo "Tests passed successfully!"
 deactivate
 rm -r .test_env
 
+
+source .build/bin/activate
+
 # Step 5: Build Linux binary with PyInstaller
 echo "Building Linux binary..."
 pyinstaller --onefile --add-data "nexus_finance/static:static" --hidden-import=flask --distpath bin --name="nexus_finance" nexus_finance/app.py
@@ -103,6 +106,9 @@ if [ "$BUILD_WINDOWS" == "y" ]; then
 else
     echo "Skipping Windows binary build."
 fi
+
+deactivate
+rm -r .build
 
 # Step 7: Ask for commit message and push to Git
 read -p "Enter your commit message: " COMMIT_MSG

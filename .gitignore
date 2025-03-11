@@ -7,4 +7,6 @@ __pycache__
 
 .old
 .venv
+.build
+.test_env
 .buildozer
