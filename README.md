@@ -85,15 +85,34 @@ If you don't cant't/want to allow user pip install nexus-finance instead !!
 
 By default, the application will run on `http://localhost:5000`. You can access the application via a web browser or interact with it through the API endpoints.
 
-### API Endpoints
+## Project Structure
+
+Here's an overview of the project structure:
+
+```
+.
+├── nexus_finance/
+│   ├── app.py               # Main application file
+│   ├── __init__.py      # Package initialization
+│   ├── investment_simulation.py   # Investment simulation logic
+│   ├── investment_strategy.py     # Investment strategy logic
+│   ├── user_base.py            # User base management
+│   ├── app_routes.py           # API route definitions
+│   ├── static/
+│   └── index.html           # Static frontend (optional)
+├── requirements.txt         # Python dependencies
+└── README.md              # This file
+```
+
+## API Endpoints
 
 The application provides several API routes for simulating investment growth, optimizing strategies, and managing user base data. Below is a list of available routes and their usage.
 
-#### 1. **`GET /`** - Serve Frontend
+### 1. **`GET /`** - Serve Frontend
 
 This serves the static frontend page (typically `index.html`) to the user.
 
-#### 2. **`POST /api/simulate`** - Simulate Investment Growth
+### 2. **`POST /api/simulate`** - Simulate Investment Growth
 
 This endpoint allows you to simulate the growth of the user base based on the provided investment plan.
 
@@ -111,7 +130,7 @@ This endpoint allows you to simulate the growth of the user base based on the pr
   - Status code: `200 OK` on success.
   - Returns the current state of the user base.
 
-#### 3. **`GET /api/status`** - Get Simulation Status
+### 3. **`GET /api/status`** - Get Simulation Status
 
 This endpoint provides the current status of the simulation.
 
@@ -119,7 +138,7 @@ This endpoint provides the current status of the simulation.
   - Status code: `200 OK`
   - Returns the status of the simulation (e.g., if it's processing or completed).
 
-#### 4. **`GET /api/processing`** - Check Processing Status
+### 4. **`GET /api/processing`** - Check Processing Status
 
 This endpoint allows you to check if the simulation is currently processing.
 
@@ -127,7 +146,7 @@ This endpoint allows you to check if the simulation is currently processing.
   - Status code: `200 OK`
   - Returns the current processing status (`true` or `false`).
 
-#### 5. **`POST /api/processing`** - Set Processing Status
+### 5. **`POST /api/processing`** - Set Processing Status
 
 This endpoint allows you to update the processing status.
 
@@ -142,7 +161,7 @@ This endpoint allows you to update the processing status.
   - Status code: `200 OK`
   - Returns the updated processing status.
 
-#### 6. **`POST /api/optimize`** - Optimize Investment Plan
+### 6. **`POST /api/optimize`** - Optimize Investment Plan
 
 This endpoint is used to optimize the investment strategy using genetic algorithms.
 
@@ -159,7 +178,7 @@ This endpoint is used to optimize the investment strategy using genetic algorith
   - Status code: `200 OK`
   - Returns the optimized investment strategy.
 
-#### 7. **`GET /api/strategy`** - Get Current Strategy
+### 7. **`GET /api/strategy`** - Get Current Strategy
 
 This endpoint retrieves the current investment strategy.
 
@@ -167,7 +186,7 @@ This endpoint retrieves the current investment strategy.
   - Status code: `200 OK`
   - Returns the current investment strategy.
 
-#### 8. **`POST /api/strategy`** - Set New Strategy
+### 8. **`POST /api/strategy`** - Set New Strategy
 
 This endpoint allows you to update the current investment strategy.
 
@@ -193,7 +212,7 @@ This endpoint allows you to update the current investment strategy.
   - Status code: `200 OK`
   - Returns the updated investment strategy.
 
-#### 9. **`GET /api/user_base`** - Get User Base
+### 9. **`GET /api/user_base`** - Get User Base
 
 This endpoint retrieves the current user base data.
 
@@ -201,7 +220,7 @@ This endpoint retrieves the current user base data.
   - Status code: `200 OK`
   - Returns the user base data in JSON format.
 
-#### 10. **`POST /api/user_base`** - Set New User Base
+### 10. **`POST /api/user_base`** - Set New User Base
 
 This endpoint allows you to update the user base.
 
@@ -218,7 +237,7 @@ This endpoint allows you to update the user base.
   - Status code: `200 OK`
   - Returns the updated user base.
 
-#### 11. **`GET /api/user_base/last`** - Get Last User Base State
+### 11. **`GET /api/user_base/last`** - Get Last User Base State
 
 This endpoint retrieves the last state of the user base.
 
@@ -226,32 +245,13 @@ This endpoint retrieves the last state of the user base.
   - Status code: `200 OK`
   - Returns the last state of the user base.
 
-#### 12. **`GET /api/user_base/types`** - Get User Base Types
+### 12. **`GET /api/user_base/types`** - Get User Base Types
 
 This endpoint retrieves all user base types.
 
 - **Response**:
   - Status code: `200 OK`
   - Returns the types of users in the user base.
-
-## Project Structure
-
-Here's an overview of the project structure:
-
-```
-.
-├── nexus_finance/
-│   ├── app.py               # Main application file
-│   ├── __init__.py      # Package initialization
-│   ├── investment_simulation.py   # Investment simulation logic
-│   ├── investment_strategy.py     # Investment strategy logic
-│   ├── user_base.py            # User base management
-│   ├── app_routes.py           # API route definitions
-│   ├── static/
-│   └── index.html           # Static frontend (optional)
-├── requirements.txt         # Python dependencies
-└── README.md              # This file
-```
 
 ## Customization
 
