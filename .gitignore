@@ -4,6 +4,7 @@ __pycache__
 
 *.log
 **/*.log
+build/*
 
 .old
 .venv
