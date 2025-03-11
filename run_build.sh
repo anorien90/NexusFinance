@@ -80,7 +80,6 @@ echo "Tests passed successfully!"
 deactivate
 rm -r .test_env
 
-
 source .build/bin/activate
 
 # Step 5: Build Linux binary with PyInstaller

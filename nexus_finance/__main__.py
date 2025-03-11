@@ -14,7 +14,6 @@
 # along with Nexus-Finance. If not, see <http://www.gnu.org/licenses/>.
 from nexus_finance.app import app
 import argparse
-import os
 import subprocess
 import sys
 
@@ -39,7 +38,6 @@ parser.add_argument("-d", "--daemon",
 
 args = parser.parse_args()
 
-# Handle daemon mode (background process)
 if args.daemon:
     LOG_FILE = "nexus_finance_error.log"
     print("Starting Nexus-Finance in daemon mode...")

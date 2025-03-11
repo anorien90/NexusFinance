@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nexus_finance"
-version = "1.1.0"
+version = "1.1.1"
 description = "Simulation for UserBase growth and financial forecast"
 readme = "README.md"
 authors = [
@@ -21,7 +21,7 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
-urls = { "Homepage" = "https://github.com/nxs-solutions/NexusFinance.git" }
+urls = { "Homepage" = "https://github.com/anorien90/NexusFinance.git" }
 
 [tool.setuptools]
 include-package-data = true

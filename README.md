@@ -52,6 +52,19 @@ To start the Flask application, run the following command:
 python -m nexus_finance
 ```
 
+You can pass arguments for the startup
+
+```bash
+usage: __main__.py [-h] [--host HOST] [-p PORT] [-s] [-d]
+
+options:
+  -h, --help            show this help message and exit
+  --host HOST           host address of the app
+  -p PORT, --port PORT  port of the application
+  -s, --silent          Wont open a browser on startup
+  -d, --daemon          Run as a background process
+```
+
 If you have the git repository and want to run the binary.
 
 For Linux use.
