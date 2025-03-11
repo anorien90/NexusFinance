@@ -109,6 +109,7 @@ fi
 
 deactivate
 rm -r .build
+rm -r build
 
 # Step 7: Ask for commit message and push to Git
 read -p "Enter your commit message: " COMMIT_MSG
