@@ -40,7 +40,6 @@ svg:disabled {
   flex-direction: column;
   height: 99vh;
   width: 100%;
-  border: 1vh solid red;
 }
 
 .overview {
@@ -52,7 +51,6 @@ svg:disabled {
   margin: 0;
   margin-left: 1.5vw;
   margin-right: 1.5vw;
-  margin-bottom: 1.5vh;
   padding: 0;
 }
 
@@ -76,7 +74,6 @@ svg:disabled {
 .overview-value {
   padding: 0;
   margin: 0;
-  padding-bottom: .5vh;
 }
 
 #total-cost-value {
@@ -149,15 +146,15 @@ svg:disabled {
 .plots {
     margin-top: 7.5vh;
     display: grid;
-    position: absolute;
+    position: fixed;
     top: 15vh;
     left: 1.5vw;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     padding-left: .25vw;
     align-items: center;
     justify-items: center;
     grid-gap: 0vh;
-    width: auto;
+    width: 40vw;
     border: 0px solid green;
     z-index: 0;
 }
@@ -165,7 +162,7 @@ svg:disabled {
 .graph {
     font-size: 5vh;
     width: auto;
-    height: 42vh;
+    height: 20vh;
     border: .4vh solid lightgrey;
     padding: .2vh;
 }
@@ -173,15 +170,16 @@ svg:disabled {
 .plot {
     border-radius: .2vh;
     min-width: 47vw;
-    width: 46vw;
+    max-width: 40vw;
     min-height: 22vh;
     height: auto;
+    width: auto;
     max-height: 42.5vh;
     scale: 1;
 }
 
 .plot-container {
-    height: 300;
+    height: auto;
     width: 100%;
 }
 
@@ -196,6 +194,11 @@ svg:disabled {
 
 .plot h2 {
   font-size: 16px;
+}
+
+.user-rates {
+  width: auto;
+  border: 1px solid grey;
 }
 
 .user-rates tr {
@@ -213,11 +216,11 @@ svg:disabled {
 }
 
 .user-rates input[type=number] {
-  width: 3.5em;
+  width: 2.5rem;
 }
 
 .user-rates input[type=range] {
-  width: 5rem;
+  width: 4rem;
 }
 
 .user-rates-input {
@@ -255,6 +258,7 @@ svg:disabled {
   position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   height: 5vh;
   z-index: 1000;
   padding-left: 2.5vw;
@@ -263,14 +267,14 @@ svg:disabled {
 .investment-plan {
   position: relative;
   background-color: transparent;
-  min-width: 5.5vw;
   width: auto;
   height: auto;
 }
 
 .investment-plan-schedule,
 .strategy-inputs {
-  position: relative;
+  position: fixed;
+  top: 9.5rem;
   padding: 1em;
   background-color: rgba(250, 250, 250, 0.8);
   border-radius: 25px;
@@ -278,7 +282,7 @@ svg:disabled {
   color: rgba(0, 0, 0, .7);
   box-shadow: 17px 9px 15px 15px rgba(0, 0, 0, .1);
   text-align: left;
-  z-index: 5000;
+  z-index: 9000;
 }
 
 .strategy-settings {
@@ -287,17 +291,24 @@ svg:disabled {
 
 .strategy-head,
 .investment-plan-head {
-  position: relative;
+  position: fixed;
   display: flex;
   flex-direction: row;
-  margin-right: 12vw;
+  width: auto;
 }
 
+.strategy-head {
+  left: 25vw;
+}
 
 .strategy-inputs {
+  position: fixed;
+  left: 20vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: auto;
+  margin-right: 5vw;
 }
 
 .strategy-inputs td,
@@ -341,17 +352,15 @@ svg:disabled {
 }
 
 .optimize-investment-plan {
-  position: absolute;
-  padding-right: 2.5vw;
+  left: 80vw;
+  position: fixed;
+  top: 12.5vh;
   display: flex;
   flex-direction: column;
   justify-content: left;
   align-items: center;
-  bottom: 9vh;
-  left: 50vw;
-  width: 48vw;
-  height: 15vh;
-  font-size: .8em;
+  font-size: .4em;
+  z-index: 4000;
 }
 
 .optimize-settings {
@@ -375,11 +384,12 @@ svg:disabled {
 }
 
 .generation-plot {
-  position: relative;
-  right: 2.5vw;
+  position: fixed;
+  right: 1.5vw;
+  top:70vh;
   display: flex;
-  width: 100%;
-  margin-top: 1.5vh;
+  width: 50vw;
+  z-index: 0;
 }
 
 .generations-graph {
@@ -430,7 +440,6 @@ svg:disabled {
   }
 }
 
-
 .hidden {
   display: none;
 }
@@ -438,48 +447,44 @@ svg:disabled {
 .user-edit-form {
   position: relative;
   left: 0;
-  z-index: 2000;
+  z-index: 5000;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   height: auto;
-  width: 100%;
   background-color: rgba(255, 255, 255, .95);
-  border: 1px solid rgba(0, 0, 0, .9);
-  padding: 1.5rem;
+  width: 50vw;
 }
 
+
 .user-distribution-container {
-  position: relative;
-  right: 2.5vw;
-  top: -1.5vh;
+  position: fixed;
   display: flex;
+  align-items: left;
   flex-direction: column;
-  padding: 1.5vh;
-  z-index: 4000;
-  width: 48vw;
-  margin-right: 1.5vw;
+  z-index: 5000;
+  left: 50vw;
+  width: 15vw;
 }
 
 .user-distribution-plot {
-  padding: 2.5vh;
-  width: 100%;
+  position: relative;
+  width: 48vw;
   padding-bottom: 0;
   margin-bottom: 0;
-  padding-right: 3.5vw;
 }
 
 .user-actions {
+  position: relative;
   display: flex;
   justify-content: left;
   align-items: center;
+  width: auto;
 }
 
 .new-user {
   display: flex;
   justify-items: center;
   align-items: center;
-  height: 92.5%;
 }
 
 .new-user button {

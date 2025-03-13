@@ -93,7 +93,7 @@ class InvestmentPlanFitness:
     def invest_efficency(num_user, cost, weight=10): 
         cost = math.log(cost)
         num_user = 1 if num_user == 0 else math.log(num_user)
-        val = cost/num_user 
+        val = cost/num_user * weight
         return val
     
     @staticmethod

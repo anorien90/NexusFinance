@@ -9,7 +9,7 @@ button:disabled {
     width: 2.5rem; /* Adjust size as needed */
     height:2.5rem;
     margin-left: 2.5vw;
-    background-image: url('../../../public/genetics-compose.png');
+    background-image: url('./genetics-compose.png');
     background-size: cover;
     background-position: center;
     border: none;
@@ -19,13 +19,13 @@ button:disabled {
 
 .generate-button:disabled {
     opacity: 0.4;
-    background-image: url('../../../public/genetics.png'); /* Set hover image */
+    background-image: url('./genetics.png'); /* Set hover image */
     cursor: not-allowed;
 }
 
 
 .generate-button:hover {
-    background-image: url('../../../public/genetics.png'); /* Set hover image */
+    background-image: url('./genetics.png'); /* Set hover image */
     opacity: 0.8;
 }
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import OptimizeInvestmentPlan from "./components/OptimizeInvestmentPlan";
-import UserBaseChart from "./components/UserBaseChart";
-import RevenueChart from "./components/RevenueChart";
-import ActiveUserChart from "./components/ActiveUserChart";
-import UserDistributionChart from "./components/UserDistributionChart";
+import UserBaseChart from "./components/chart/UserBaseChart";
+import RevenueChart from "./components/chart/RevenueChart";
+import ActiveUserChart from "./components/chart/ActiveUserChart";
+import UserDistributionChart from "./components/chart/UserDistributionChart";
 import UserBaseOverview from "./components/UserBaseOverview";
 import StrategySettings from "./components/StrategySettings";
 import InvestmentPlan from "./components/InvestmentPlan";
@@ -171,8 +171,11 @@ function App() {
 
   return (
     <div className="dashboard">
-      <h1 className="text-3xl font-bold mb-4">User Base Simulation</h1>
-      <UserBaseOverview userBase={userBase} setUserBase={setUserBase} setIsProcessing={setIsProcessing}/>
+        <UserBaseOverview 
+          userBase={userBase} 
+          setUserBase={setUserBase} 
+          setIsProcessing={setIsProcessing}
+        />
       <div className="settings-bar">
         <InvestmentPlan
           investmentPlan={investmentPlan}
@@ -197,25 +200,23 @@ function App() {
           setHasUpdated={setHasUpdated} 
           strategy={strategy} 
         />
+        <OptimizeInvestmentPlan
+          investmentPlan={investmentPlan}
+          setInvestmentPlan={setInvestmentPlan}
+          isProcessing={isProcessing}
+          setIsProcessing={setIsProcessing}
+          err={err}
+          setErr={setErr}
+          strategy={strategy}
+        />
+
+
       </div>
       <div id="plots" className="plots">
-        <div>
-          <ActiveUserChart data={userBase.days} strategy={strategy} />
-          <UserBaseChart data={userBase.days} />
-          <RevenueChart data={userBase.days} />
-        </div>
-        <div>
-          <OptimizeInvestmentPlan
-            investmentPlan={investmentPlan}
-            setInvestmentPlan={setInvestmentPlan}
-            isProcessing={isProcessing}
-            setIsProcessing={setIsProcessing}
-            err={err}
-            setErr={setErr}
-            strategy={strategy}
-          />
-        </div>
-      </div>
+        <ActiveUserChart data={userBase.days} strategy={strategy} />
+        <UserBaseChart data={userBase.days} />
+        <RevenueChart data={userBase.days} />
+     </div>
     </div>
   );
 }

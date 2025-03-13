@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 import GenerateButton from "./button/GenerateButton";
+import GenerationsChart from "./chart/GenerationsChart";
 
 const OptimizeInvestmentPlan = ({
   investmentPlan,
@@ -28,10 +29,6 @@ const OptimizeInvestmentPlan = ({
     generations: initialStrategy?.generations || 20,
     mut_prop: initialStrategy?.mut_prop || 0.2,
   });
-
-  const [generation, setGeneration] = useState(1);
-  const [logbook, setLogbook] = useState([]);
-
   // Function to handle input changes
   const handleInputChange = (e, field) => {
     const value = e.target.value;
@@ -40,26 +37,6 @@ const OptimizeInvestmentPlan = ({
       [field]: Number(value), // Convert to number if needed
     }));
   };
-
-  useEffect(() => {
-    if (isProcessing) {
-      const interval = setInterval(async () => {
-        try {
-          const response = await fetch("http://127.0.0.1:5000/api/optimize");
-          if (!response.ok) throw new Error("Failed to fetch optimization progress.");
-          
-          const data = await response.json();
-          setGeneration(data.generation);
-          setLogbook(data.logbook);
-          setIsProcessing(data.processing);
-        } catch (error) {
-          setErr(error.message);
-        }
-      }, 20000);
-
-      return () => clearInterval(interval);
-    }
-  }, [isProcessing]);
 
   const handleOptimize = async () => {
     setIsProcessing(true);
@@ -154,42 +131,12 @@ const OptimizeInvestmentPlan = ({
         <path 
           d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
       </button>
-  
-
     </div>
-    
-    <div className="generation-plot">
-        <ResponsiveContainer className="generation-graph" width="100%" height={150}>
-        <LineChart data={logbook.map(log => ({ gen: log.gen, min: log.min, max: log.max, mean: log.mean }))}>
-          <XAxis dataKey="gen" label={{ value: "Generation", position: "insideBottomRight", offset: 0 }} />
-          <YAxis label={{ value: "Penalty", angle: -90, position: "insideBottomCenter", offset: 50 }} />
-          <Tooltip />
-          <Line 
-            type="monotone" 
-            dataKey="min" 
-            stroke="green" 
-            strokeWidth={2}
-            dot={{ r: 1, fill: 'green' }} // Custom dot styling
-          />
-          <Line 
-            type="monotone" 
-            dataKey="mean" 
-            stroke="blue" 
-            strokeWidth={2}
-            dot={{ r: 1, fill: 'blue' }} // Custom dot styling
-          />
-          <Line 
-            type="monotone" 
-            dataKey="max" 
-            stroke="red" 
-            strokeWidth={2} 
-            dot={{ r: 1, fill: 'red' }} // Custom dot styling
- 
-          />
-        </LineChart>
-        </ResponsiveContainer>
-      </div>
-     {err && <p className="text-red-500 mt-4">{err}</p>}
+    <GenerationsChart
+      isProcessing={isProcessing} 
+      err={err}
+      setErr={setErr}
+    />
     </div>
   );
 };

@@ -280,11 +280,3 @@ If you'd like to contribute to the project, feel free to fork the repository, ma
 
 This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
 
----
-
-### Additional Notes
-
-1. If you want to include any specific setup instructions, like setting up a database, you can do that here.
-2. Consider adding a **`requirements.txt`** if you haven't already, to list all the dependencies.
-
-With this detailed README, your users will be able to understand how to install, configure, and use your application with ease.`

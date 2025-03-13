@@ -24,6 +24,14 @@ echo "Tests passed successfully!"
 deactivate
 rm -r .test_env
 
+cd user-base-dashboard
+rm -r build/*
+npm run build
+rm -r ../nexus_finance/static/*
+cp -r build/* ../nexus_finance/static/
+rm -r build/*
+cd ..
+
 # Start building dist packages
 echo "Starting build process..."
 python3 -m venv .build
